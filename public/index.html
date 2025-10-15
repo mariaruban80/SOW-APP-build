@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>App Login</title>
+  <style>
+    body {
+      background-color: #0e1a2b;
+      color: #fff;
+      font-family: "Inter", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      background: #16223a;
+      border-radius: 16px;
+      padding: 40px 35px;
+      width: 360px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-weight: 600;
+    }
+
+    button,
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #2563eb;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #1e40af;
+    }
+
+    .social-btn {
+      background-color: #fff;
+      color: #333;
+      border: 1px solid #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .divider {
+      text-align: center;
+      margin: 15px 0;
+      color: #aaa;
+      font-size: 13px;
+    }
+
+    .link {
+      color: #3b82f6;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .actions {
+      text-align: center;
+      font-size: 13px;
+      margin-top: 15px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .cancel-btn {
+      background-color: #475569;
+    }
+
+    .cancel-btn:hover {
+      background-color: #334155;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2 id="form-title">Sign in</h2>
+
+    <div id="login-form">
+      <button class="social-btn">
+        <img src="https://www.svgrepo.com/show/355037/google.svg" width="18" />
+        Continue with Google
+      </button>
+      <button class="social-btn">
+        <img src="https://www.svgrepo.com/show/349502/microsoft.svg" width="18" />
+        Continue with Microsoft
+      </button>
+
+      <div class="divider">or use email</div>
+
+      <input type="email" placeholder="Email" required />
+      <input type="password" placeholder="Password" required />
+
+      <button>Sign in</button>
+
+      <div class="actions">
+        <a href="#" class="link">Forgot password?</a><br />
+        Don’t have an account? <span class="link" id="register-link">Register</span>
+      </div>
+    </div>
+
+    <div id="register-form" class="hidden">
+      <input type="text" placeholder="Full Name" required />
+      <input type="email" placeholder="Email" required />
+      <input type="password" placeholder="Password" required />
+      <input type="password" placeholder="Confirm Password" required />
+      <button>Submit</button>
+      <button class="cancel-btn" id="cancel-btn">Cancel</button>
+    </div>
+  </div>
+
+  <script>
+    const registerLink = document.getElementById("register-link");
+    const cancelBtn = document.getElementById("cancel-btn");
+    const loginForm = document.getElementById("login-form");
+    const registerForm = document.getElementById("register-form");
+    const formTitle = document.getElementById("form-title");
+
+    registerLink.addEventListener("click", () => {
+      loginForm.classList.add("hidden");
+      registerForm.classList.remove("hidden");
+      formTitle.textContent = "Register";
+    });
+
+    cancelBtn.addEventListener("click", () => {
+      registerForm.classList.add("hidden");
+      loginForm.classList.remove("hidden");
+      formTitle.textContent = "Sign in";
+    });
+  </script>
+</body>
+</html>
+
