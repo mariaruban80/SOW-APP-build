@@ -14,7 +14,7 @@ const app = express();
 const FRONTEND_ORIGINS = process.env.FRONTEND_ORIGINS
   ? process.env.FRONTEND_ORIGINS.split(',')  // comma-separated list
   : []; // empty array → allow all origins
-
+console.log("Allowed frontend origins:", FRONTEND_ORIGINS);
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin) return callback(null, true); // allow non-browser requests
