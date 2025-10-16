@@ -201,41 +201,48 @@
 
   </div>
 <script>
- const API_BASE_URL = window.env?.API_BASE_URL || "http://localhost:4000";
+  // ✅ Set API_BASE_URL dynamically
+  // - If served from backend: same origin → ""
+  // - If frontend hosted separately: set to backend URL
+  const API_BASE_URL = window.API_BASE_URL || ""; // leave empty if same origin
 
-async function signupUser() {
-  const name = document.querySelector('#signup-name').value.trim();
-  const email = document.querySelector('#signup-email').value.trim();
-  const password = document.querySelector('#signup-password').value;
+  async function signupUser() {
+    const name = document.querySelector('#signup-name').value.trim();
+    const email = document.querySelector('#signup-email').value.trim();
+    const password = document.querySelector('#signup-password').value;
 
-  if (!name || !email || !password) {
-    alert("Please fill in all fields");
-    return;
+    if (!name || !email || !password) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    // Use relative path if frontend and backend are same origin
+    const url = API_BASE_URL ? `${API_BASE_URL}/api/users/signup` : `/api/users/signup`;
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Signup failed");
+
+      alert("Account created successfully!");
+      window.location.href = `${window.location.origin}/Dashboard.html`;
+    } catch (err) {
+      console.error(err);
+      alert("Error: " + err.message);
+    }
   }
-
-  try {
-    const response = await fetch(`${API_BASE_URL}/api/users/signup`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, password }),
-    });
-
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error || "Signup failed");
-
-    alert("Account created successfully!");
-    window.location.href = `${window.location.origin}/Dashboard.html`;
-  } catch (err) {
-    alert("Error: " + err.message);
-  }
-}
-
 
   function toggleForm() {
     const signup = document.getElementById("signup-card");
     signup.style.display = signup.style.display === "none" ? "block" : "none";
   }
 </script>
+
 
 
 </body>
