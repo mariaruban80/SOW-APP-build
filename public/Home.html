@@ -201,32 +201,35 @@
 
   </div>
 <script>
-  async function signupUser() {
-    const name = document.querySelector('#signup-name').value.trim();
-    const email = document.querySelector('#signup-email').value.trim();
-    const password = document.querySelector('#signup-password').value;
+ const API_BASE_URL = window.env?.API_BASE_URL || "http://localhost:4000";
 
-    if (!name || !email || !password) {
-      alert("Please fill in all fields");
-      return;
-    }
+async function signupUser() {
+  const name = document.querySelector('#signup-name').value.trim();
+  const email = document.querySelector('#signup-email').value.trim();
+  const password = document.querySelector('#signup-password').value;
 
-    try {
-      const response = await fetch("https://rina-app-backend.onrender.com/api/users/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
-      });
-
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Signup failed");
-
-      alert("Account created successfully!");
-      window.location.href = "Dashboard.html";
-    } catch (err) {
-      alert(err.message);
-    }
+  if (!name || !email || !password) {
+    alert("Please fill in all fields");
+    return;
   }
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/users/signup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, password }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || "Signup failed");
+
+    alert("Account created successfully!");
+    window.location.href = `${window.location.origin}/Dashboard.html`;
+  } catch (err) {
+    alert("Error: " + err.message);
+  }
+}
+
 
   function toggleForm() {
     const signup = document.getElementById("signup-card");
