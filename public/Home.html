@@ -27,9 +27,7 @@
       justify-content: center;
       align-items: flex-start;
       gap: 40px;
-      background: transparent;
       padding: 40px;
-      border-radius: 16px;
     }
 
     .card {
@@ -37,7 +35,11 @@
       border-radius: 16px;
       padding: 40px;
       width: 340px;
+      height: 480px; /* 👈 Fixed height for perfect alignment */
       box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
     }
 
     h2 {
@@ -141,7 +143,7 @@
     .text-sm {
       font-size: 14px;
       text-align: center;
-      margin-top: 20px;
+      margin-top: auto;
       color: #aaa;
     }
 
@@ -179,7 +181,7 @@
 
       <div class="forgot"><a href="#">Forgot password?</a></div>
 
-      <button class="submit-btn" onclick="goToDashboard()">Sign in</button>
+      <button class="submit-btn" style="margin-bottom: 10px;" onclick="goToDashboard()">Sign in</button>
 
       <p class="text-sm">New user? <a href="#" onclick="toggleForm()">Register</a></p>
     </div>
@@ -192,9 +194,12 @@
       <input type="email" placeholder="Email" />
       <input type="password" placeholder="Password" />
 
-      <button class="submit-btn" onclick="goToDashboard()">Sign up</button>
+      <div style="flex-grow: 1;"></div> <!-- Push sign up button to bottom -->
 
-      <p class="text-sm">Already have an account? <a href="#" onclick="toggleForm()">Sign in</a></p>
+   <button class="submit-btn" style="margin-bottom: 20px;" onclick="goToDashboard()">Sign up</button>
+
+<p class="text-sm">Already have an account? <a href="#" onclick="toggleForm()">Sign in</a></p>
+
     </div>
   </div>
 
