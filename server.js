@@ -41,9 +41,9 @@ if (process.env.FRONTEND_BUILD_DIR) {
   // Serve static files
   app.use(express.static(frontendDir));
 
-  // Catch-all to serve index.html or home.html for frontend routes
+  // Catch-all: serve home.html for all frontend routes
   app.get('*', (req, res) => {
-    res.sendFile(path.join(frontendDir, 'index.html'));
+    res.sendFile(path.join(frontendDir, 'Home.html'));
   });
 }
 
