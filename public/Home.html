@@ -3,227 +3,210 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>App Login</title>
+  <title>Login | SOW Management</title>
   <style>
-    body {
-      background-color: #0e1625;
-      font-family: "Inter", sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+    * {
       margin: 0;
-      color: #fff;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", sans-serif;
+    }
+
+    body {
+      background-color: #0b1221;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      background: transparent;
+      padding: 40px;
+      border-radius: 16px;
     }
 
     .card {
-      background: #141d2f;
+      background-color: #11182f;
       border-radius: 16px;
-      padding: 40px 35px;
-      width: 360px;
-      box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
+      padding: 40px;
+      width: 340px;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
     }
 
     h2 {
-      text-align: center;
-      margin-bottom: 25px;
+      font-size: 28px;
       font-weight: 600;
+      margin-bottom: 24px;
     }
 
-    button,
-    input {
+    .btn {
       width: 100%;
-      padding: 12px;
-      margin-top: 10px;
-      border-radius: 8px;
-      border: none;
-      font-size: 14px;
-      box-sizing: border-box;
-    }
-
-    input {
-      background: #1e293b;
-      color: #fff;
-      border: 1px solid #334155;
-      outline: none;
-    }
-
-    input::placeholder {
-      color: #94a3b8;
-    }
-
-    button {
-      cursor: pointer;
-      font-weight: 500;
-      transition: 0.3s;
-    }
-
-    .primary-btn {
-      background-color: #2563eb;
-      color: #fff;
-    }
-
-    .primary-btn:hover {
-      background-color: #1d4ed8;
-    }
-
-    .social-btn {
-      background-color: #fff;
-      color: #333;
-      border: 1px solid #ccc;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 10px;
+      background-color: #fff;
+      color: #333;
       font-weight: 500;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 0;
+      cursor: pointer;
+      margin-bottom: 16px;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    .btn img {
+      width: 20px;
+      height: 20px;
     }
 
     .divider {
-      text-align: center;
-      margin: 20px 0 15px;
-      color: #aaa;
-      font-size: 13px;
-      position: relative;
+      display: flex;
+      align-items: center;
+      color: #888;
+      font-size: 14px;
+      margin: 16px 0;
     }
 
     .divider::before,
     .divider::after {
       content: "";
-      position: absolute;
-      width: 40%;
+      flex: 1;
       height: 1px;
-      background: #334155;
-      top: 50%;
+      background: #333;
+      margin: 0 8px;
     }
 
-    .divider::before {
-      left: 0;
+    input {
+      width: 100%;
+      background-color: #1a2343;
+      border: none;
+      outline: none;
+      color: white;
+      padding: 12px 14px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 14px;
     }
 
-    .divider::after {
-      right: 0;
+    input::placeholder {
+      color: #a1a1a1;
     }
 
     .forgot {
-      display: block;
       text-align: right;
-      color: #60a5fa;
       font-size: 13px;
-      margin-top: 6px;
-      margin-bottom: 16px;
-      cursor: pointer;
+      color: #aaa;
+      margin-bottom: 20px;
+    }
+
+    .forgot a {
+      color: #ccc;
       text-decoration: none;
     }
 
-    .forgot:hover {
+    .forgot a:hover {
       text-decoration: underline;
     }
 
-    .actions {
-      text-align: center;
-      font-size: 13px;
-      margin-top: 18px;
-      color: #cbd5e1;
+    .submit-btn {
+      width: 100%;
+      background-color: #2563eb;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: 600;
+      padding: 12px 0;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.2s;
     }
 
-    .link {
-      color: #60a5fa;
-      cursor: pointer;
+    .submit-btn:hover {
+      background-color: #1d4ed8;
+    }
+
+    .text-sm {
+      font-size: 14px;
+      text-align: center;
+      margin-top: 20px;
+      color: #aaa;
+    }
+
+    .text-sm a {
+      color: white;
+      text-decoration: none;
       font-weight: 500;
     }
 
-    .hidden {
-      display: none;
-    }
-
-    #register-form input {
-      width: 90%;
-      margin-left: 5%;
-    }
-
-    .btn-group {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-    .btn-group button {
-      flex: 1;
-    }
-
-    .cancel-btn {
-      background-color: #475569;
-      color: #fff;
-    }
-
-    .cancel-btn:hover {
-      background-color: #334155;
+    .text-sm a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h2 id="form-title">Sign in</h2>
+  <div class="container">
+    <!-- Sign In Card -->
+    <div class="card">
+      <h2>Sign in</h2>
 
-    <!-- Login Form -->
-    <div id="login-form">
-      <button class="social-btn">
-        <img src="https://www.svgrepo.com/show/355037/google.svg" width="18" />
+      <button class="btn">
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" />
         Continue with Google
       </button>
-      <button class="social-btn">
-        <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/microsoft.svg" width="18" />
+
+      <button class="btn">
+        <img src="https://www.svgrepo.com/show/349375/microsoft.svg" alt="Microsoft" />
         Continue with Microsoft
       </button>
 
-      <div class="divider">or use email</div>
+      <div class="divider">or</div>
 
-      <input type="email" placeholder="Email" required />
-      <input type="password" placeholder="Password" required />
+      <input type="email" placeholder="Email" />
+      <input type="password" placeholder="Password" />
 
-      <a href="#" class="forgot">Forgot password?</a>
+      <div class="forgot"><a href="#">Forgot password?</a></div>
 
-      <button class="primary-btn">Sign in</button>
+      <button class="submit-btn" onclick="goToDashboard()">Sign in</button>
 
-      <div class="actions">
-        Don’t have an account?
-        <span class="link" id="register-link">Register</span>
-      </div>
+      <p class="text-sm">New user? <a href="#" onclick="toggleForm()">Register</a></p>
     </div>
 
-    <!-- Register Form -->
-    <div id="register-form" class="hidden">
-      <input type="text" placeholder="Full Name" required />
-      <input type="email" placeholder="Email" required />
-      <input type="password" placeholder="Password" required />
-      <input type="password" placeholder="Confirm Password" required />
+    <!-- Sign Up Card -->
+    <div class="card" id="signup-card" style="display: block;">
+      <h2>Sign up</h2>
 
-      <div class="btn-group">
-        <button class="primary-btn">Submit</button>
-        <button class="cancel-btn" id="cancel-btn">Cancel</button>
-      </div>
+      <input type="text" placeholder="Name" />
+      <input type="email" placeholder="Email" />
+      <input type="password" placeholder="Password" />
+
+      <button class="submit-btn" onclick="goToDashboard()">Sign up</button>
+
+      <p class="text-sm">Already have an account? <a href="#" onclick="toggleForm()">Sign in</a></p>
     </div>
   </div>
 
   <script>
-    const registerLink = document.getElementById("register-link");
-    const cancelBtn = document.getElementById("cancel-btn");
-    const loginForm = document.getElementById("login-form");
-    const registerForm = document.getElementById("register-form");
-    const formTitle = document.getElementById("form-title");
+    function toggleForm() {
+      const signup = document.getElementById("signup-card");
+      signup.style.display = signup.style.display === "none" ? "block" : "none";
+    }
 
-    registerLink.addEventListener("click", () => {
-      loginForm.classList.add("hidden");
-      registerForm.classList.remove("hidden");
-      formTitle.textContent = "Register";
-    });
-
-    cancelBtn.addEventListener("click", () => {
-      registerForm.classList.add("hidden");
-      loginForm.classList.remove("hidden");
-      formTitle.textContent = "Sign in";
-    });
+    function goToDashboard() {
+      window.location.href = "Dashboard.html";
+    }
   </script>
 </body>
 </html>
