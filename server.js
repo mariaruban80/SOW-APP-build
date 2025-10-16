@@ -11,15 +11,13 @@ dotenv.config();
 const app = express();
 
 // ✅ Dynamic CORS: allow frontend origin(s) from environment variable or allow all
-const FRONTEND_ORIGINS = process.env.FRONTEND_ORIGINS 
+const FRONTEND_ORIGINS = process.env.FRONTEND_ORIGINS
   ? process.env.FRONTEND_ORIGINS.split(',')  // comma-separated list
-  : []; // empty array → allow all
+  : []; // empty array → allow all origins
 
 app.use(cors({
   origin: (origin, callback) => {
-    // allow requests with no origin (e.g., Postman or server-to-server)
-    if (!origin) return callback(null, true);
-
+    if (!origin) return callback(null, true); // allow non-browser requests
     if (FRONTEND_ORIGINS.length === 0 || FRONTEND_ORIGINS.includes(origin)) {
       return callback(null, true);
     } else {
@@ -35,21 +33,26 @@ app.use(express.json());
 app.use('/api/users', usersRouter);
 app.use('/api/health', healthRouter);
 
-// ✅ Optional: serve frontend if FRONTEND_BUILD_DIR is set
+// ✅ Serve frontend if FRONTEND_BUILD_DIR is set
 if (process.env.FRONTEND_BUILD_DIR) {
   const __dirname = path.dirname(fileURLToPath(import.meta.url));
-  const frontendPath = path.resolve(__dirname, process.env.FRONTEND_BUILD_DIR);
-  app.use(express.static(frontendPath));
+  const frontendDir = path.resolve(__dirname, process.env.FRONTEND_BUILD_DIR);
 
+  // Serve static files
+  app.use(express.static(frontendDir));
+
+  // Catch-all to serve index.html or home.html for frontend routes
   app.get('*', (req, res) => {
-    res.sendFile(path.join(frontendPath, 'index.html'));
+    res.sendFile(path.join(frontendDir, 'index.html'));
   });
 }
 
-// ✅ Optional root route
-app.get('/', (req, res) => res.send('Backend is running!'));
+// ✅ Optional root route if frontend is not served
+if (!process.env.FRONTEND_BUILD_DIR) {
+  app.get('/', (req, res) => res.send('Backend is running!'));
+}
 
-// ✅ Catch-all 404
+// ✅ Catch-all for unknown API routes
 app.use((req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
